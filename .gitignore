@@ -1,0 +1,4 @@
+/.idea
+/backend/vendor
+/backend/config
+/Docker/.env
