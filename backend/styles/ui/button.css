@@ -1,0 +1,26 @@
+:root {
+    --white-color: #FFFFFF;
+    --blue-color: #0000ff;
+    --dark-blue-accent: #000080;
+    --light-blue-accent: #ADD8E6;
+}
+
+button {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--dark-blue-accent);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    background-color: var(--light-blue-accent);
+}

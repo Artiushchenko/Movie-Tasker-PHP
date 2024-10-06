@@ -2,12 +2,13 @@
     "name": "root/backend",
     "authors": [
         {
-            "name": "Grebenyuk_Chernenko",
-            "email": "312chernenkods@gmail.com"
+            "name": "Kyrylo_Artiushchenko",
+            "email": "xclassifiedx@ukr.net"
         }
     ],
     "require": {
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+	    "ext-mysqli": "*"
     },
     "require-dev": {
         "wanfeiyy/dd": "^1.0",
@@ -15,8 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Palmo\\": "",
-            "Palmo\\Core\\": "scripts/"
+            "Palmo\\": ""
         }
     }
 }

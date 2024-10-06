@@ -1,0 +1,19 @@
+:root {
+    --black-color: #000000;
+    --red-color: #FF0000;
+}
+
+.reset-link-styles {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--black-color);
+}
+
+.cross-icon-style {
+    font-size: inherit;
+    transition: 0.2s ease-in-out;
+}
+
+.cross-icon-style:hover {
+    color: var(--red-color);
+}

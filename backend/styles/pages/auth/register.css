@@ -1,0 +1,80 @@
+:root {
+    --black-color: #000000;
+    --red-color: #FF0000;
+    --blue-color: #0000ff;
+}
+
+.auth {
+    display: flex;
+}
+
+.auth-banner,
+.auth-form {
+    width: 50%;
+    display: flex;
+}
+
+.auth-banner {
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-form {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.auth-form span {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.auth-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 60%;
+}
+
+.auth-form form > div > input {
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    border: 2px solid var(--black-color);
+}
+
+.auth-form form > div > input.errorMessage {
+    border-color: var(--red-color);
+}
+
+.auth-form .error-message {
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--red-color);
+    text-align: center;
+}
+
+.auth-form .submitStatus {
+    font-weight: 700;
+    color: var(--red-color);
+}
+
+.auth-form .navigate {
+    display: flex;
+    gap: 5px;
+}
+
+.auth-form .navigate span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.auth-form .navigate a {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--blue-color);
+    font-size: 14px;
+}
