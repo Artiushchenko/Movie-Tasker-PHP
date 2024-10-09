@@ -1,5 +1,9 @@
 <?php
-	require_once __DIR__ . '/../../ui/button/button.php';
+require_once __DIR__ . '/../../ui/button/button.php';
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <section class="auth">
@@ -11,7 +15,9 @@
             <span>Registration</span>
 
             <form action="../../../handlers/register.php" method="POST">
-                <div class="input-container">
+	            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']) ?>" />
+
+	            <div class="input-container">
                     <input
                         type="email"
                         name="email"
@@ -66,6 +72,12 @@
                     renderButton('Register', 'submit');
                 ?>
             </form>
+
+            <?php if (isset($_SESSION['errors']['general'])): ?>
+		        <p class="submitStatus">
+                    <?php echo $_SESSION['errors']['general']; ?>
+		        </p>
+            <?php endif; ?>
 
             <div class="navigate">
                 <span>Do you have an account?</span>

@@ -6,6 +6,16 @@ require_once './connection.php';
 require_once '../validation/validation.php';
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
+    $_SESSION['errors'] = [];
+
+    if(!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']){
+        $_SESSION['errors']['general'] = 'Invalid CSRF token';
+        header('Location: /register');
+        exit();
+    }
+
+    unset($_SESSION['csrf_token']);
+
     $email = $_POST["email"];
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];

@@ -5,8 +5,8 @@ require_once '../dto/user.php';
 require_once './connection.php';
 require_once '../validation/validation.php';
 
-function setRememberMeCookies($csrfToken, $email, $expiration) {
-    setcookie('remember_me', $csrfToken, $expiration, '/login');
+function setRememberMeCookies($token, $email, $expiration) {
+    setcookie('remember_me', $token, $expiration, '/login');
     setcookie('remember_email', $email, $expiration, '/login');
 }
 
@@ -50,13 +50,17 @@ if (!isset($_SESSION['user']) && isset($_COOKIE['remember_me'])) {
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $_SESSION['errors'] = [];
 
+    if(!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']){
+        $_SESSION['errors']['general'] = 'Invalid CSRF token';
+        header('Location: /login');
+        exit();
+    }
+
+    unset($_SESSION['csrf_token']);
+
     $email = trim($_POST["email"]);
     $password = trim($_POST["password"]);
     $rememberMe = isset($_POST["remember"]);
-
-    $_SESSION['input']['email'] = $email;
-    $_SESSION['input']['password'] = $password;
-    $_SESSION['input']['remember'] = $rememberMe;
 
     $emailValidator = new Validator('email');
     $isEmailValid = $emailValidator->validate($email, $connection);

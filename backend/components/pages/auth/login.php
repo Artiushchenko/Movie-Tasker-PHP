@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/../../ui/button/button.php';
+
+if(empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <section class="auth">
@@ -11,6 +15,8 @@ require_once __DIR__ . '/../../ui/button/button.php';
 		<span>Log In</span>
 
 		<form action="../../../handlers/login.php" method="POST">
+			<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']) ?>">
+
 			<div class="input-container">
 				<input
 					type="email"
