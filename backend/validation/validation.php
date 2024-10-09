@@ -1,56 +1,70 @@
 <?php
-interface ValidationInterface {
+interface ValidationInterface
+{
     public function validate($data): bool;
 }
 
-class EmailValidator implements ValidationInterface {
-    private $existingEmails;
-
-    public function __construct(array $existingEmails) {
-        $this->existingEmails = $existingEmails;
+class EmailValidator implements ValidationInterface
+{
+    public function validate($data): bool
+    {
+        return filter_var($data, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    public function validate($data): bool {
-        return filter_var($data, FILTER_VALIDATE_EMAIL) !== false
-               && !in_array($data, $this->existingEmails);
-    }
-}
+    public function isUnique($data, $connection): bool
+    {
+        $stmt = $connection->prepare("SELECT COUNT(*) as count FROM `users` WHERE `users`.`email` = ?");
+        $stmt->bind_param("s", $data);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $count = $result->fetch_assoc()['count'];
 
-class PasswordValidator implements ValidationInterface {
-    private $confirmPassword;
-
-    public function __construct($confirmPassword) {
-        $this->confirmPassword = $confirmPassword;
-    }
-
-    public function validate($data): bool {
-        return $data === $this->confirmPassword;
+        return $count === 0;
     }
 }
 
-class Validator {
-    private $type;
-    private $data;
+class PasswordValidator implements ValidationInterface
+{
+    public function validate($data): bool
+    {
+        return strlen($data) >= 6;
+    }
+
+    public function confirm($password, $confirmPassword): bool
+    {
+        return $password === $confirmPassword;
+    }
+}
+
+class Validator
+{
     private $validator;
+    private $type;
 
-    public function __construct(string $type, $data, $extra = null) {
+    public function __construct($type) {
         $this->type = $type;
-        $this->data = $data;
-        $this->validator = $this->getValidator($extra);
+        $this->validator = $this->getValidator($type);
     }
 
-    private function getValidator($extra): ValidationInterface {
-        switch ($this->type) {
+    private function getValidator($type)
+    {
+        switch ($type) {
             case 'email':
-                return new EmailValidator($extra);
+                return new EmailValidator();
             case 'password':
-                return new PasswordValidator($extra);
+                return new PasswordValidator();
             default:
-                throw new Exception('Unknown validation type: ' . $this->type);
+                throw new Exception("Unknown validator type: $type");
         }
     }
 
-    public function validate(): bool {
-        return $this->validator->validate($this->data);
+    public function validate($data, $connection = null): bool
+    {
+        if(!$this->validator->validate($data)) {
+            $_SESSION['errors'][$this->type] = "The {$this->type} field is filled incorrectly";
+            return false;
+        }
+
+        return true;
     }
 }

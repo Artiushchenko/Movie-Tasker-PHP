@@ -3,16 +3,40 @@ session_start();
 
 require_once '../dto/user.php';
 require_once './connection.php';
+require_once '../validation/validation.php';
 
 if($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
-//    Обработка ошибок
-//    if($password !== $confirm_password) {
-//        exit();
-//    }
+    $emailValidator = new Validator('email');
+    if(!$emailValidator->validate($email)){
+        $_SESSION['errors']['email'] = "Incorrect e-mail format";
+        header('Location: /register');
+        exit();
+    }
+
+    $emailValidatorInstance = new EmailValidator();
+    if(!$emailValidatorInstance->isUnique($email, $connection)){
+        $_SESSION['errors']['email'] = "Current e-mail is already in use.";
+        header('Location: /register');
+        exit();
+    }
+
+    $passwordValidator = new Validator('password');
+    if(!$passwordValidator->validate($password)){
+        $_SESSION['errors']['password'] = "Password must be at least 6 characters";
+        header('Location: /register');
+        exit();
+    }
+
+    $passwordValidatorInstance = new PasswordValidator();
+    if(!$passwordValidatorInstance->confirm($password, $confirm_password)){
+        $_SESSION['errors']['confirm_password'] = "Password does not match";
+        header('Location: /register');
+        exit();
+    }
 
     $userDTO = new UserDTO($email, password_hash($password, PASSWORD_DEFAULT));
 
@@ -33,7 +57,6 @@ function registerUser($userDTO, $connection) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-//    Проверка на существование пользователя
     if($result->num_rows > 0) {
         return false;
     }

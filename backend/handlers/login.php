@@ -3,9 +3,10 @@ session_start();
 
 require_once '../dto/user.php';
 require_once './connection.php';
+require_once '../validation/validation.php';
 
-function setRememberMeCookies($token, $email, $expiration) {
-    setcookie('remember_me', $token, $expiration, '/login');
+function setRememberMeCookies($csrfToken, $email, $expiration) {
+    setcookie('remember_me', $csrfToken, $expiration, '/login');
     setcookie('remember_email', $email, $expiration, '/login');
 }
 
@@ -47,21 +48,33 @@ if (!isset($_SESSION['user']) && isset($_COOKIE['remember_me'])) {
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $email = $_POST["email"];
-    $password = $_POST["password"];
+    $_SESSION['errors'] = [];
+
+    $email = trim($_POST["email"]);
+    $password = trim($_POST["password"]);
     $rememberMe = isset($_POST["remember"]);
 
-    $userDTO = loginUser($email, $password, $connection);
+    $_SESSION['input']['email'] = $email;
+    $_SESSION['input']['password'] = $password;
+    $_SESSION['input']['remember'] = $rememberMe;
 
-    if($userDTO) {
-        $_SESSION['user'] = $userDTO->email;
-        handleRememberMe($rememberMe, $email, $connection);
-        header('Location: /');
-        exit();
-    } else {
-        header('Location: /404');
-        exit();
+    $emailValidator = new Validator('email');
+    $isEmailValid = $emailValidator->validate($email, $connection);
+
+    if($isEmailValid) {
+        $userDTO = loginUser($email, $password, $connection);
+
+        if($userDTO) {
+            $_SESSION['user'] = $userDTO->email;
+            handleRememberMe($rememberMe, $email, $connection);
+            header('Location: /');
+            exit();
+        }
     }
+
+    $_SESSION['errors']['general'] = 'Invalid e-mail or password';
+    header('Location: /login');
+    exit();
 }
 
 function loginUser($email, $password, $connection) {

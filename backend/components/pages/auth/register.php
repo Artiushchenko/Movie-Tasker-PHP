@@ -19,6 +19,13 @@
                         class="input-field"
                         required
                     />
+                    <?php if (isset($_SESSION['errors']['email'])): ?>
+		                <p class="error-message">
+			                <?php
+			                echo htmlspecialchars($_SESSION['errors']['email']);
+							?>
+		                </p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="input-container">
@@ -29,6 +36,13 @@
                         class="input-field"
                         required
                     />
+                    <?php if (isset($_SESSION['errors']['password'])): ?>
+		                <p class="error-message">
+			                <?php
+			                echo htmlspecialchars($_SESSION['errors']['password']);
+							?>
+		                </p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="input-container">
@@ -39,6 +53,13 @@
                         class="input-field"
                         required
                     />
+                    <?php if (isset($_SESSION['errors']['confirm_password'])): ?>
+		                <p class="error-message">
+			                <?php
+			                echo htmlspecialchars($_SESSION['errors']['confirm_password']);
+							?>
+		                </p>
+                    <?php endif; ?>
                 </div>
 
                 <?php
