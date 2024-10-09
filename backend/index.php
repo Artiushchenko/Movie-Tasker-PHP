@@ -27,7 +27,10 @@
 				<ul>
 					<?php if (isset($_SESSION['user'])): ?>
 						<li>
-							<a href="/">Create new task</a>
+							<a href="/">New task</a>
+						</li>
+						<li>
+							<a href="/new-tag">New tag</a>
 						</li>
 						<li>
 							<a href="/tasks">Tasks</a>

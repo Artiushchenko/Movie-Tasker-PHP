@@ -64,35 +64,22 @@
             </div>
         </div>
 
-        <div class="tag-list">
-            <div class="tag-wrapper">
-                <div class="tag">
-                    <span>Add New</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="tag-list new-tag">
-            <input type="text" name="tagTitle" placeholder="Name of the new tag" class="form-control" />
-            <button type="button" class="add-new-tag">Add new tag</button>
-        </div>
-
-        <div class="tag-list existing-tags">
-            <div class="tag-wrapper">
-                <div class="tag">
-                    <span>Tag 1</span>
-                    <span class="remove-tag-icon">
-                            <i class="fa-solid fa-xmark"></i>
-                        </span>
-                </div>
-                <div class="tag">
-                    <span>Tag 2</span>
-                    <span class="remove-tag-icon">
-                            <i class="fa-solid fa-xmark"></i>
-                        </span>
-                </div>
-            </div>
-        </div>
+<!--        <div class="tag-list existing-tags">-->
+<!--            <div class="tag-wrapper">-->
+<!--                <div class="tag">-->
+<!--                    <span>Tag 1</span>-->
+<!--                    <span class="remove-tag-icon">-->
+<!--                            <i class="fa-solid fa-xmark"></i>-->
+<!--                        </span>-->
+<!--                </div>-->
+<!--                <div class="tag">-->
+<!--                    <span>Tag 2</span>-->
+<!--                    <span class="remove-tag-icon">-->
+<!--                            <i class="fa-solid fa-xmark"></i>-->
+<!--                        </span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
 
         <button type="submit" class="sendTask">Create</button>
     </form>

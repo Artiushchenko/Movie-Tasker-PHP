@@ -9,6 +9,7 @@ function isAuthenticated() {
 $authRoutes = [
     '/' => 'components/pages/new_task/new_task.php',
     '/tasks' => 'components/pages/tasks/tasks.php',
+    '/new-tag' => 'components/pages/new_tag/new_tag.php',
 ];
 
 $publicRoutes = [
