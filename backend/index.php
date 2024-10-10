@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="./styles/pages/auth/register.css">
 	<link rel="stylesheet" href="./styles/pages/auth/login.css">
 	<link rel="stylesheet" href="./styles/ui/button.css">
+	<link rel="stylesheet" href="./styles/pages/tasks/tasks.css">
 </head>
 <body>
 	<div id="app">
@@ -28,9 +29,6 @@
 					<?php if (isset($_SESSION['user'])): ?>
 						<li>
 							<a href="/">New task</a>
-						</li>
-						<li>
-							<a href="/new-tag">New tag</a>
 						</li>
 						<li>
 							<a href="/tasks">Tasks</a>
