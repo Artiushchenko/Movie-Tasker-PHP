@@ -1,0 +1,74 @@
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    cursor: pointer;
+    padding: 20px;
+    border: 1px solid black;
+    transition: 0.3s ease-in-out;
+}
+
+.task-item .item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-item .item-header .item-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.task-item .item-header .item-stats .item-label {
+    padding: 5px 20px;
+    background-color: #808080; /* Замените на желаемый серый цвет */
+    color: #ffffff; /* Замените на желаемый белый цвет */
+}
+
+.task-item .item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.task-item .item-content .item-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-item .item-content .item-name h1 {
+    display: inline;
+}
+
+.task-item .item-content .tag-list {
+    display: flex;
+    gap: 10px;
+}
+
+.task-item .item-content .tag-list .tag-wrapper .tag {
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid black; /* Замените на нужный цвет */
+    border-radius: 20px;
+    width: max-content;
+}
+
+.task-item:hover {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.task-item.completed .item-content h1 {
+    text-decoration: line-through;
+    color: #808080; /* Замените на желаемый серый цвет */
+}
