@@ -1,0 +1,32 @@
+.tag-manage {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tag-manage > form > label {
+    font-size: 16px;
+}
+
+.tag-manage > form .tag-control-panel {
+    padding-top: 5px;
+}
+
+.tag-manage > strong {
+    font-size: 24px;
+}
+
+.tag-manage-input {
+    padding: 8px;
+    width: 15%;
+    font-size: 14px;
+    border: 2px solid var(--black-color);
+}
+
+.remove-tag {
+    background-color: var(--red-color);
+}
+
+.remove-tag:hover {
+    background-color: #8B0000;
+}

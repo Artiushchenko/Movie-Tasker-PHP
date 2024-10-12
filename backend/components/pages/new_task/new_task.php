@@ -87,6 +87,14 @@ $tags = getUserTags($connection, $user_email);
 	        font-weight: bold;
         }
 
+        .multiselect .create-tag-link {
+	        color: var(--blue-color);
+        }
+
+        .multiselect .remove-tag-link {
+            color: var(--red-color);
+        }
+
         .sendTask {
             margin-left: auto;
         }
@@ -176,7 +184,8 @@ $tags = getUserTags($connection, $user_email);
 
 		<div class="multiselect">
 			<label for="tags">
-				<a href="/new-tag">Create</a>
+				<a class="create-tag-link" href="/tag-manage">Create</a>,
+				<a class="remove-tag-link" href="/tag-manage">remove</a>
 				or select tags:
 			</label>
 			<select name="tags[]" id="tags" multiple>

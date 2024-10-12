@@ -11,14 +11,13 @@
     <title>Movie Tasker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="./assets/images/favicon.png">
-	<link rel="stylesheet" href="./styles/main.css">
-	<link rel="stylesheet" href="./styles/layout/header.css">
-	<link rel="stylesheet" href="./styles/layout/main.css">
-	<link rel="stylesheet" href="./styles/pages/auth/register.css">
-	<link rel="stylesheet" href="./styles/pages/auth/login.css">
-	<link rel="stylesheet" href="./styles/ui/button.css">
-	<link rel="stylesheet" href="./styles/pages/tasks/tasks.css">
-</head>
+	<link rel="stylesheet" type="text/css" href="./styles/main.css">
+	<link rel="stylesheet" type="text/css" href="./styles/layout/header.css">
+	<link rel="stylesheet" type="text/css" href="./styles/layout/main.css">
+	<link rel="stylesheet" type="text/css" href="./styles/pages/auth/register.css">
+	<link rel="stylesheet" type="text/css" href="./styles/pages/auth/login.css">
+	<link rel="stylesheet" type="text/css" href="./styles/ui/button.css">
+</head
 <body>
 	<div id="app">
 		<header>

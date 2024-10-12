@@ -48,7 +48,7 @@
     display: inline;
 }
 
-.task-item .item-content .tag-list {
+.task-item .item-content .tag-list .tag-wrapper {
     display: flex;
     gap: 10px;
 }
@@ -59,9 +59,15 @@
     gap: 10px;
     align-items: center;
     padding: 5px 10px;
-    border: 1px solid black; /* Замените на нужный цвет */
+    border: 1px solid black;
     border-radius: 20px;
     width: max-content;
+}
+
+.task-item .item-content .task-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
 }
 
 .task-item:hover {
@@ -70,5 +76,5 @@
 
 .task-item.completed .item-content h1 {
     text-decoration: line-through;
-    color: #808080; /* Замените на желаемый серый цвет */
+    color: #808080;
 }
