@@ -28,6 +28,8 @@ $tasks = getTasks($connection);
     <?php endif; ?>
 
     <?php include 'components/ui/editModalWindow/editModalWindow.php' ?>
+    <?php include 'components/ui/confirmDeleteModalWindow/confirmDeleteModalWindow.php' ?>
 </section>
 
 <script src="../../../js/editModal/editModal.js"></script>
+<script src="../../../js/confirmDeleteModal/confirmDeleteModal.js"></script>

@@ -24,7 +24,7 @@
 }
 
 .remove-tag {
-    background-color: var(--red-color);
+    background-color: red;
 }
 
 .remove-tag:hover {

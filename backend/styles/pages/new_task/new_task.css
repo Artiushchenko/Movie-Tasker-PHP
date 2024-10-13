@@ -60,7 +60,7 @@ label {
 }
 
 .multiselect .remove-tag-link {
-    color: var(--red-color);
+    color: red;
 }
 
 .sendTask {

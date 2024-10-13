@@ -33,7 +33,12 @@ function renderTaskItem($task, $connection)
 			</div>
 
 			<div class="task-buttons-container">
-				<button type="button" onclick='openEditModal(<?= json_encode($task) ?>)'>Edit</button>
+				<button
+					type="button"
+					onclick='openEditModal(<?= json_encode($task) ?>)'
+				>
+					Edit
+				</button>
 
 				<form method="POST" action="../../../handlers/toggle_task_status.php">
 					<input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id']) ?>">
@@ -41,11 +46,12 @@ function renderTaskItem($task, $connection)
 					<button type="submit">Done</button>
 				</form>
 
-				<form method="POST" action="../../../handlers/remove_task.php">
-					<input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id']) ?>">
-					<input type="hidden" name="action" value="delete">
-					<button type="submit">Remove</button>
-				</form>
+				<button
+					type="button"
+					onclick="openDeleteModal(<?= htmlspecialchars($task['id']) ?>)"
+				>
+					Remove
+				</button>
 			</div>
 		</div>
 	</div>
