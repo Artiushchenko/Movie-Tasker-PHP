@@ -1,0 +1,68 @@
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input[type='text'],
+input[type='number'],
+textarea {
+    padding: 8px;
+    width: 100%;
+    font-size: 14px;
+    border: 2px solid var(--black-color);
+}
+
+input[type='number'] {
+    width: 15%;
+}
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+.total-time-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.total-time-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 15px;
+}
+
+.multiselect > label > a {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--black-color);
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+.multiselect > label > a:hover {
+    font-weight: bold;
+}
+
+.multiselect .create-tag-link {
+    color: var(--blue-color);
+}
+
+.multiselect .remove-tag-link {
+    color: var(--red-color);
+}
+
+.sendTask {
+    margin-left: auto;
+}

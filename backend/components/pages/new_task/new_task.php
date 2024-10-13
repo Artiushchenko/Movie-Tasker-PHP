@@ -1,22 +1,6 @@
 <?php
 require_once 'handlers/connection.php';
-
-function getUserTags($connection, $user_email)
-{
-    $stmt = $connection->prepare("SELECT * FROM tags WHERE user_email = ?");
-    $stmt->bind_param("s", $user_email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $tags = [];
-
-    while ($row = $result->fetch_assoc()) {
-        $tags[] = $row;
-    }
-
-    $stmt->close();
-    return $tags;
-}
+require_once 'helpers/new_task_helper.php';
 
 $user_email = $_SESSION['user'];
 $tags = getUserTags($connection, $user_email);
@@ -27,101 +11,15 @@ $tags = getUserTags($connection, $user_email);
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- CSS STYLES LINKS -->
 	<link rel="stylesheet"
 	      href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
-	<style>
-        section {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+	<link rel="stylesheet" href="../../../styles/pages/new_task/new_task.css">
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        input[type='text'],
-        input[type='number'],
-        textarea {
-            padding: 8px;
-            width: 100%;
-            font-size: 14px;
-            border: 2px solid var(--black-color);
-        }
-
-        input[type='number'] {
-            width: 15%;
-        }
-
-        textarea {
-            height: 80px;
-            resize: none;
-        }
-
-        .total-time-settings {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .total-time-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 15px;
-        }
-
-        .multiselect > label > a {
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--black-color);
-            position: relative;
-            transition: 0.3s ease-in-out;
-        }
-
-        .multiselect > label > a:hover {
-	        font-weight: bold;
-        }
-
-        .multiselect .create-tag-link {
-	        color: var(--blue-color);
-        }
-
-        .multiselect .remove-tag-link {
-            color: var(--red-color);
-        }
-
-        .sendTask {
-            margin-left: auto;
-        }
-	</style>
-	<script>
-		function toggleFields() {
-			const taskCategory = document.getElementById('taskCategory').value;
-			const filmFields = document.getElementById('filmFields');
-			const serialFields = document.getElementById('serialFields');
-
-			if (taskCategory === 'Film') {
-				filmFields.style.display = 'block';
-				serialFields.style.display = 'none';
-			} else if (taskCategory === 'Serial') {
-				filmFields.style.display = 'none';
-				serialFields.style.display = 'block';
-			} else {
-				filmFields.style.display = 'none';
-				serialFields.style.display = 'none';
-			}
-		}
-
-		window.onload = function() {
-			toggleFields();
-			document.getElementById('taskCategory').addEventListener('change', toggleFields);
-		};
-	</script>
+	<!-- JS PRELOAD SCRIPTS -->
+	<script src="../../../js/toggleTypeFields/toggleTypeFields.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
 </head>
 <body>
 <section>
@@ -201,15 +99,7 @@ $tags = getUserTags($connection, $user_email);
 	</form>
 </section>
 
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
-<script>
-	new MultiSelectTag('tags', {
-		tagColor: {
-			textColor: '#000000',
-			borderColor: '#000000',
-			bgColor: '#FFFFFF'
-		}
-	});
-</script>
+<!-- MULTISELECT JS SCRIPT -->
+<script src="../../../js/multiSelect/multiSelect.js"></script>
 </body>
 </html>

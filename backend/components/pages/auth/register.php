@@ -1,10 +1,12 @@
 <?php
-require_once __DIR__ . '/../../ui/button/button.php';
-
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 ?>
+
+<style>
+	@import '../../../styles/pages/auth/register.css';
+</style>
 
 <section class="auth">
         <div class="auth-banner">
@@ -68,9 +70,7 @@ if (empty($_SESSION['csrf_token'])) {
                     <?php endif; ?>
                 </div>
 
-                <?php
-                    renderButton('Register', 'submit');
-                ?>
+	            <button type="submit">Register</button>
             </form>
 
             <?php if (isset($_SESSION['errors']['general'])): ?>

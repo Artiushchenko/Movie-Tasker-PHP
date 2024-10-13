@@ -5,8 +5,8 @@ require_once '../dto/tag.php';
 require_once './connection.php';
 
 function createNewTag($connection, $tagDTO) {
-    $stmt = $connection->prepare("INSERT INTO tags (title, user_email) VALUES (?, ?)");
-    $stmt->bind_param("ss", $tagDTO->title, $tagDTO->user_email);
+    $stmt = $connection->prepare('INSERT INTO tags (title, user_email) VALUES (?, ?)');
+    $stmt->bind_param('ss', $tagDTO->title, $tagDTO->user_email);
 
     if($stmt->execute()) {
         $stmt->close();
@@ -17,14 +17,14 @@ function createNewTag($connection, $tagDTO) {
     }
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $tagTitle = $_POST["tagTitle"];
-    $user_email = $_SESSION["user"];
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $tagTitle = $_POST['tagTitle'];
+    $user_email = $_SESSION['user'];
 
     $tagDTO = new Tag($tagTitle, $user_email);
 
     if(createNewTag($connection, $tagDTO)) {
-        header("Location: /");
+        header('Location: /');
         exit();
     }
 }

@@ -13,7 +13,12 @@ class EmailValidator implements ValidationInterface
 
     public function isUnique($data, $connection): bool
     {
-        $stmt = $connection->prepare("SELECT COUNT(*) as count FROM `users` WHERE `users`.`email` = ?");
+        $stmt = $connection->prepare('
+            SELECT 
+                COUNT(*) as count 
+            FROM `users` 
+            WHERE `users`.`email` = ?
+        ');
         $stmt->bind_param("s", $data);
         $stmt->execute();
         $result = $stmt->get_result();

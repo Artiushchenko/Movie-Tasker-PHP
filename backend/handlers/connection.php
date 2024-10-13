@@ -1,6 +1,6 @@
 <?php
-$connection = mysqli_connect("db", "root", "admin", "movie_tasker");
+$connection = mysqli_connect('db', 'root', 'admin', 'movie_tasker');
 
 if(!$connection){
-    die("Connection failed: " . mysqli_connect_error());
+    die('Connection failed: ' . mysqli_connect_error());
 }

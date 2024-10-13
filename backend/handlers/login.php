@@ -20,8 +20,12 @@ function handleRememberMe($rememberMe, $email, $connection) {
         $token = bin2hex(random_bytes(32));
         $expiration = time() + (86400 * 30);
 
-        $stmt = $connection->prepare("UPDATE users SET remember_token = ?, token_expires = ? WHERE email = ?");
-        $stmt->bind_param("sis", $token, $expiration, $email);
+        $stmt = $connection->prepare('
+            UPDATE users 
+            SET remember_token = ?, token_expires = ? 
+            WHERE email = ?
+        ');
+        $stmt->bind_param('sis', $token, $expiration, $email);
         $stmt->execute();
 
         setRememberMeCookies($token, $email, $expiration);
@@ -34,8 +38,12 @@ if (!isset($_SESSION['user']) && isset($_COOKIE['remember_me'])) {
     $token = $_COOKIE['remember_me'];
     $currentTime = time();
 
-    $stmt = $connection->prepare("SELECT email FROM users WHERE remember_token = ? AND token_expires > ?");
-    $stmt->bind_param("si", $token, $currentTime);
+    $stmt = $connection->prepare('
+        SELECT email 
+        FROM users 
+        WHERE remember_token = ? AND token_expires > ?
+    ');
+    $stmt->bind_param('si', $token, $currentTime);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -47,7 +55,7 @@ if (!isset($_SESSION['user']) && isset($_COOKIE['remember_me'])) {
     }
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $_SESSION['errors'] = [];
 
     if(!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']){
@@ -58,9 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     unset($_SESSION['csrf_token']);
 
-    $email = trim($_POST["email"]);
-    $password = trim($_POST["password"]);
-    $rememberMe = isset($_POST["remember"]);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $rememberMe = isset($_POST['remember']);
 
     $emailValidator = new Validator('email');
     $isEmailValid = $emailValidator->validate($email, $connection);
@@ -82,10 +90,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 function loginUser($email, $password, $connection) {
-    $loginQuery = "SELECT * FROM users WHERE email = ?";
+    $loginQuery = 'SELECT * FROM users WHERE email = ?';
 
     $stmt = $connection->prepare($loginQuery);
-    $stmt->bind_param("s", $email);
+    $stmt->bind_param('s', $email);
     $stmt->execute();
     $result = $stmt->get_result();
 

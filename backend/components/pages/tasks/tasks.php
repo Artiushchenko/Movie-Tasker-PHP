@@ -1,20 +1,15 @@
 <?php
 require_once 'handlers/connection.php';
-
-require_once 'components/ui/button/button.php';
 require_once 'components/pages/tasks/taskItem.php';
-
 require_once 'helpers/task_helper.php';
 
 $tasks = getTasks($connection);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<link rel="stylesheet" href="../../../styles/pages/tasks/tasks.css">
-</head>
-<body>
+<style>
+	@import '../../../styles/pages/tasks/tasks.css';
+</style>
+
 <section>
 	<div class="tasks-header">
 		<h1>Tasks</h1>
@@ -34,6 +29,5 @@ $tasks = getTasks($connection);
 
     <?php include 'components/ui/editModalWindow/editModalWindow.php' ?>
 </section>
+
 <script src="../../../js/editModal/editModal.js"></script>
-</body>
-</html>

@@ -12,12 +12,12 @@
             <form id="editTaskForm" method="POST" action="../../../handlers/edit_task.php">
                 <input type="hidden" name="task_id" id="task_id" value="">
                 <div>
-                    <p>Title:</p>
+                    <label for="task_title">Title:</label>
                     <input type="text" name="title" id="task_title"/>
                 </div>
 
                 <div>
-                    <p>Description:</p>
+                    <label for="task_description">Description:</label>
                     <textarea name="description" id="task_description"></textarea>
                 </div>
                 <div class="modal-footer">
