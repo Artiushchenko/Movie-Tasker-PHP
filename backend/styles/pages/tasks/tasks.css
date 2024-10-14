@@ -1,3 +1,38 @@
+.tasks {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 75vh
+}
+
+.no-tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.tasks-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tasks-header h1 {
+    display: inline;
+}
+
+.filter-list form {
+    display: flex;
+    gap: 20px;
+}
+
+.filter-list form > input {
+    padding: 10px;
+}
+
 .task-list {
     display: flex;
     flex-direction: column;
@@ -14,6 +49,29 @@
     transition: 0.3s ease-in-out;
 }
 
+.task-item.completed .item-content h1 {
+    text-decoration: line-through;
+    color: var(--gray-color);
+}
+
+.task-item .item-content .task-buttons-container .task-edit-button {
+    background-color: green;
+    transition: 0.3s ease-in-out;
+}
+
+.task-item .item-content .task-buttons-container .task-edit-button:hover {
+    background-color: darkgreen;
+}
+
+.task-item .item-content .task-buttons-container .task-delete-button {
+    background-color: red;
+    transition: 0.3s ease-in-out;
+}
+
+.task-item .item-content .task-buttons-container .task-delete-button:hover {
+    background-color: darkred;
+}
+
 .task-item .item-header {
     display: flex;
     align-items: center;
@@ -28,8 +86,8 @@
 
 .task-item .item-header .item-stats .item-label {
     padding: 5px 20px;
-    background-color: #808080; /* Замените на желаемый серый цвет */
-    color: #ffffff; /* Замените на желаемый белый цвет */
+    background-color: #808080;
+    color: #ffffff;
 }
 
 .task-item .item-content {

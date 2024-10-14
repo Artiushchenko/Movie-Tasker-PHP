@@ -15,6 +15,8 @@ if (isset($_POST['task_id'], $_POST['title'], $_POST['description'])) {
     $stmt->execute();
     $stmt->close();
 
-    header('Location: /tasks');
+    $referer = $_SERVER['HTTP_REFERER'] ?? '/tasks';
+
+    header("Location: $referer");
     exit();
 }

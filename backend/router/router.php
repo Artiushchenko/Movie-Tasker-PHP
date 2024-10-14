@@ -1,5 +1,5 @@
 <?php
-$request_uri = $_SERVER['REQUEST_URI'];
+$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
 
 function isAuthenticated() {
@@ -9,6 +9,7 @@ function isAuthenticated() {
 $authRoutes = [
     '/' => 'components/pages/new_task/new_task.php',
     '/tasks' => 'components/pages/tasks/tasks.php',
+    '/tasks/([0-9]+)' => 'components/pages/tasks/tasks.php',
     '/tag-manage' => 'components/pages/tag_manage/tag_manage.php',
 ];
 
@@ -18,15 +19,29 @@ $publicRoutes = [
     '/404' => 'components/pages/not_found/not_found.php',
 ];
 
-if(array_key_exists($request_uri, $authRoutes)) {
-    if(isAuthenticated()) {
-        return $authRoutes[$request_uri];
-    } else {
-        header('Location: /login');
-        exit();
+$foundRoute = false;
+
+foreach ($authRoutes as $route => $file) {
+    if(preg_match("~^$route$~",$request_uri, $matches)) {
+        if(isAuthenticated()) {
+            if(count($matches) > 1) {
+                $_GET['page'] = $matches[1];
+            } else {
+                $_GET['page'] = $_GET['current_page'] ?? 1;
+            }
+
+            return $file;
+        } else {
+            header('Location: /login');
+            exit();
+        }
     }
-} elseif (array_key_exists($request_uri, $publicRoutes)) {
-    return $publicRoutes[$request_uri];
-} else {
-    return './components/pages/not_found/not_found.php';
 }
+
+foreach ($publicRoutes as $route => $file) {
+    if($request_uri === $route) {
+        return $file;
+    }
+}
+
+return './components/pages/not_found/not_found.php';

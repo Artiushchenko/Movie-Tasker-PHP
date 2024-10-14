@@ -3,16 +3,26 @@ require_once 'handlers/connection.php';
 require_once 'components/pages/tasks/taskItem.php';
 require_once 'helpers/task_helper.php';
 
-$tasks = getTasks($connection);
+list($currentPage, $itemsPerPage) = getCurrentPageAndItemsPerPage();
+
+$totalItems = getTotalTasksCount($connection, $_SESSION['user']);
+
+$filter = $_POST['filter'] ?? 'active';
+$searchQuery = $_POST['search_query'] ?? '';
+
+$offset = ($currentPage - 1) * $itemsPerPage;
+
+$tasks = getTasks($connection, $offset, $itemsPerPage, $filter, $searchQuery);
 ?>
 
 <style>
 	@import '../../../styles/pages/tasks/tasks.css';
 </style>
 
-<section>
+<section class="tasks">
 	<div class="tasks-header">
 		<h1>Tasks</h1>
+		<?php include 'components/pages/tasks/filterList.php'; ?>
 	</div>
 
     <?php if (empty($tasks)): ?>
@@ -25,6 +35,8 @@ $tasks = getTasks($connection);
                 <?php renderTaskItem($task, $connection); ?>
             <?php endforeach; ?>
 		</div>
+
+        <?php include 'components/pages/tasks/pagination.php'?>
     <?php endif; ?>
 
     <?php include 'components/ui/editModalWindow/editModalWindow.php' ?>

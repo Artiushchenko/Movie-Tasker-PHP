@@ -1,8 +1,9 @@
 <?php
 function renderTaskItem($task, $connection)
 {
-    ?>
-	<div class="task-item">
+    $completedClass = $task['is_completed'] === 1 ? 'completed' : '';
+	?>
+	<div class="task-item <?= $completedClass ?>">
 		<div class="item-header">
 			<div class="item-stats">
 				<span class="item-label"><?= htmlspecialchars($task['category']) ?></span>
@@ -33,12 +34,15 @@ function renderTaskItem($task, $connection)
 			</div>
 
 			<div class="task-buttons-container">
-				<button
-					type="button"
-					onclick='openEditModal(<?= json_encode($task) ?>)'
-				>
-					Edit
-				</button>
+				<?php if ($task['is_completed'] === 0): ?>
+					<button
+						type="button"
+						onclick='openEditModal(<?= json_encode($task) ?>)'
+						class="task-edit-button"
+					>
+						Edit
+					</button>
+				<?php endif; ?>
 
 				<form method="POST" action="../../../handlers/toggle_task_status.php">
 					<input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id']) ?>">
@@ -49,6 +53,7 @@ function renderTaskItem($task, $connection)
 				<button
 					type="button"
 					onclick="openDeleteModal(<?= htmlspecialchars($task['id']) ?>)"
+					class="task-delete-button"
 				>
 					Remove
 				</button>
