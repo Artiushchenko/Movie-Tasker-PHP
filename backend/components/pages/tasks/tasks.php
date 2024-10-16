@@ -7,12 +7,18 @@ list($currentPage, $itemsPerPage) = getCurrentPageAndItemsPerPage();
 
 $totalItems = getTotalTasksCount($connection, $_SESSION['user']);
 
+if (isset($_POST['reset_filters'])) {
+    resetTaskFilters();
+}
+
 $filter = $_POST['filter'] ?? 'active';
 $searchQuery = $_POST['search_query'] ?? '';
+$taskDate = $_POST['task_date'] ?? null;
+$sortOrder = $_POST['sort_order'] ?? null;
 
 $offset = ($currentPage - 1) * $itemsPerPage;
 
-$tasks = getTasks($connection, $offset, $itemsPerPage, $filter, $searchQuery);
+$tasks = getTasks($connection, $offset, $itemsPerPage, $filter, $searchQuery, $taskDate, $sortOrder);
 ?>
 
 <style>

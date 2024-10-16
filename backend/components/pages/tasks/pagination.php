@@ -3,10 +3,11 @@
 </style>
 
 <?php
+$totalItems = getFilteredTasksCount($connection, $_SESSION['user'], $filter, $searchQuery, $taskDate);
 $totalPages = ceil($totalItems / $itemsPerPage);
 ?>
 
-<?php if ($totalPages <= 1): ?>
+<?php if ($totalPages <= 1 || $totalItems <= 5): ?>
     <?php return; ?>
 <?php endif; ?>
 
