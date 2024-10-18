@@ -41,6 +41,22 @@ class PasswordValidator implements ValidationInterface
     }
 }
 
+class TaskTitleValidator implements ValidationInterface
+{
+    public function validate($data): bool
+    {
+        return !empty(trim($data));
+    }
+}
+
+class TagNameValidator implements ValidationInterface
+{
+    public function validate($data): bool
+    {
+        return !empty(trim($data));
+    }
+}
+
 class Validator
 {
     private $validator;
@@ -58,6 +74,10 @@ class Validator
                 return new EmailValidator();
             case 'password':
                 return new PasswordValidator();
+            case 'task-title':
+                return new TaskTitleValidator();
+            case 'tag-name':
+                return new TagNameValidator();
             default:
                 throw new Exception("Unknown validator type: $type");
         }

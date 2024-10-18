@@ -1,4 +1,9 @@
 <?php
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 function renderTaskItem($task, $connection)
 {
     $completedClass = $task['is_completed'] === 1 ? 'completed' : '';
@@ -45,6 +50,7 @@ function renderTaskItem($task, $connection)
 				<?php endif; ?>
 
 				<form method="POST" action="../../../handlers/toggle_task_status.php">
+					<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 					<input type="hidden" name="task_id" value="<?= htmlspecialchars($task['id']) ?>">
 					<input type="hidden" name="action" value="toggle">
 					<button type="submit">Done</button>

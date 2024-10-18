@@ -2,8 +2,19 @@
 session_start();
 
 require_once './connection.php';
+require_once '../validation/validation.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['errors'] = [];
+
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        $_SESSION['errors']['general'] = 'Invalid CSRF token';
+        header('Location: /new-task');
+        exit();
+    }
+
+    unset($_SESSION['csrf_token']);
+
     $taskTitle = $_POST['taskTitle'] ?? '';
     $taskDescription = $_POST['taskDescription'] ?? '';
     $taskCategory = $_POST['taskCategory'] ?? '';
@@ -12,6 +23,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $is_completed = 0;
     $time = null;
+
+    $taskTitleValidator = new Validator('task-title');
+
+    if(!$taskTitleValidator->validate($taskTitle)) {
+        $_SESSION['errors']['new-task'] = 'Task title is empty!';
+        header('Location: /');
+        exit();
+    }
 
     if($taskCategory === 'Film') {
         $hours = $_POST['filmHours'] ?? 0;

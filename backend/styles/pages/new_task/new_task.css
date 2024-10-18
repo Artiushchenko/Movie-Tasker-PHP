@@ -66,3 +66,14 @@ label {
 .sendTask {
     margin-left: auto;
 }
+
+form > .form-group > .error-message {
+    color: red;
+    padding-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+form > .form-group > .form-control.error {
+    border-color: red;
+}

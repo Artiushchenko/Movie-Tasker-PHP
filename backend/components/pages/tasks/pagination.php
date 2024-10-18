@@ -13,7 +13,7 @@ $totalPages = ceil($totalItems / $itemsPerPage);
 
 <div class="pagination">
     <form method="GET" action="/tasks">
-        <button
+	    <button
             type="submit"
             name="current_page"
             value="<?= max($currentPage - 1, 1) ?>"

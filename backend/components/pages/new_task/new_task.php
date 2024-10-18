@@ -2,8 +2,11 @@
 require_once 'handlers/connection.php';
 require_once 'helpers/new_task_helper.php';
 
-$user_email = $_SESSION['user'];
-$tags = getUserTags($connection, $user_email);
+$tags = getUserTags($connection, $_SESSION['user']);
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +29,20 @@ $tags = getUserTags($connection, $user_email);
 	<h1>Create new task</h1>
 
 	<form method="POST" action="../../../handlers/create_task.php">
+		<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 		<div class="form-group">
 			<input
 				type="text"
 				name="taskTitle"
 				placeholder="What we will watch?"
-				class="form-control"
-				required
+				class="form-control <?php echo isset($_SESSION['errors']['new-task']) ? 'error' : ''; ?>"
 			/>
+
+            <?php if (isset($_SESSION['errors']['new-task'])): ?>
+				<p class="error-message">
+                    <?php echo $_SESSION['errors']['new-task']; ?>
+				</p>
+            <?php endif; ?>
 		</div>
 
 		<div class="form-group">

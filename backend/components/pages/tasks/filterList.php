@@ -1,5 +1,12 @@
+<?php
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+?>
+
 <div class="filter-list">
     <form method="POST" action="">
+	    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 	    <label for="task_date">Date:</label>
 	    <input
 		    type="date"

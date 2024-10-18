@@ -45,8 +45,8 @@
     border: 2px solid var(--black-color);
 }
 
-.auth-form form > div > input.errorMessage {
-    border-color: var(--red-color);
+.auth-form form > .input-container > .input-field.error {
+    border-color: red;
 }
 
 .auth-form .error-message {

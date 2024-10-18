@@ -8,8 +8,19 @@
     font-size: 16px;
 }
 
+.tag-manage > form > .error-message {
+    color: red;
+    padding-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 .tag-manage > form .tag-control-panel {
     padding-top: 5px;
+}
+
+.tag-manage > form .tag-control-panel > .tag-manage-input.error {
+    border-color: red;
 }
 
 .tag-manage > strong {

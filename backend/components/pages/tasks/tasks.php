@@ -5,7 +5,9 @@ require_once 'helpers/task_helper.php';
 
 list($currentPage, $itemsPerPage) = getCurrentPageAndItemsPerPage();
 
-$totalItems = getTotalTasksCount($connection, $_SESSION['user']);
+$queryBuilder = new QueryBuilder();
+
+$totalItems = $queryBuilder->getTotalTasksCount($connection, $_SESSION['user']);
 
 if (isset($_POST['reset_filters'])) {
     resetTaskFilters();

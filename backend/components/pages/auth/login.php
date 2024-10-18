@@ -24,7 +24,7 @@ if(empty($_SESSION['csrf_token'])) {
 					type="email"
 					name="email"
 					placeholder="E-mail"
-					class="input-field"
+					class="input-field <?php echo isset($_SESSION['errors']['email']) ? 'error' : ''; ?>"
 					required
 					value="
                         <?php
@@ -46,7 +46,7 @@ if(empty($_SESSION['csrf_token'])) {
 					type="password"
 					name="password"
 					placeholder="Password"
-					class="input-field"
+					class="input-field <?php echo isset($_SESSION['errors']['password']) ? 'error' : ''; ?>"
 					required
 				/>
                 <?php if (isset($_SESSION['errors']['password'])): ?>
